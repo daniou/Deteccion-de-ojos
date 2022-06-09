@@ -5,8 +5,8 @@ import pandas as pd
 import os
 
 # PATHS DESTINO
-destFacesPath = './Preprocesado/Caras/'
-destNoEyesPath = './Preprocesado/Sin_ojos/'
+destFacesPath = './Preprocesado/Ojos/'
+destNoEyesPath = './Preprocesado/No_ojos/'
 
 #CREANDO ENTORNO
 os.mkdir("Preprocesado")
