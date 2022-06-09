@@ -4,14 +4,15 @@ import cv2
 import pandas as pd
 import os
 
-#CREANDO ENTORNO
-os.mkdir("Preprocesado")
-os.mkdir("Preprocesado/Caras/")
-os.mkdir("Preprocesado/Sin_Ojos/")
-
 # PATHS DESTINO
 destFacesPath = './Preprocesado/Caras/'
 destNoEyesPath = './Preprocesado/Sin_ojos/'
+
+#CREANDO ENTORNO
+os.mkdir("Preprocesado")
+os.mkdir(destFacesPath)
+os.mkdir(destNoEyesPath)
+
 
 # CARGAR NOMBRES DE LAS IMAGENES
 facesPath = './Cares/'
