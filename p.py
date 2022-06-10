@@ -2,13 +2,18 @@ import numpy as np
 import cv2
 import pandas as pd
 
+finalImageSize = (32,48)
 
-   
-img = cv2.imread("sample.jpg")
-# imgray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-leftEye = img[413:413+32*4, 284:284+4*48]
-rightEye = img[413:413+32*4, 550:550+4*48]
-leftEye = cv2.resize(leftEye,(48,32))
-rightEye = cv2.resize(rightEye,(48,32))
-cv2.imwrite('1.jpg', leftEye)
-cv2.imwrite('2.jpg', rightEye)
+
+img = cv2.imread("noojo.jpg")
+imgray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+maxY=int(imgray.shape[0]/finalImageSize[0])
+maxX=int(imgray.shape[1]/finalImageSize[1])
+
+i=0
+for stepY in range(maxY):
+    for stepX in range(maxX):
+        cropped = imgray[stepY*finalImageSize[0]:(stepY+1)*finalImageSize[0], 
+                        stepX*finalImageSize[1]:(stepX+1)*finalImageSize[1]]
+        cv2.imwrite(str(i)+'.jpg', cropped)
+        i+=1
