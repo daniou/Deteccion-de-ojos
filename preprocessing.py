@@ -3,8 +3,15 @@ import numpy as np
 import cv2
 import pandas as pd
 import os
+import shutil
 
-finalImageSize = (32,48)
+finalImageSize = (48,32)
+
+#Restablecer en caso de que sea necesario
+try:
+    shutil.rmtree('./Preprocesado')
+except:
+    print("No se ha encontrado la carpeta de Preprocesado")
 
 #PATHS DESTINO
 destFacesPath = './Preprocesado/Ojos/'
@@ -22,16 +29,16 @@ noEyesPath = './No_ulls/'
 faceImages = os.listdir(facesPath)
 NoEyesImages = os.listdir(noEyesPath)
 
-print("CARAS:\n",faceImages)
-print("SIN OJOS:\n",noEyesPath)
+# print("CARAS:\n",faceImages)
+# print("SIN OJOS:\n",noEyesPath)
 i=0
 
 #PREPROCESSING POR CADA IMAGEN DE CARAS
 for name in faceImages:
     img = cv2.imread(facesPath+name)
     imgray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    leftEye = imgray[413:413+finalImageSize[1]*4, 284:284+4*finalImageSize[0]]
-    rightEye = imgray[413:413+finalImageSize[1]*4, 550:550+4*finalImageSize[0]]
+    leftEye = imgray[413:413+4*finalImageSize[1], 284:284+4*finalImageSize[0]]
+    rightEye = imgray[413:413+4*finalImageSize[1], 550:550+4*finalImageSize[0]]
     leftEye = cv2.resize(leftEye,finalImageSize)
     rightEye = cv2.resize(rightEye,finalImageSize)
     cv2.imwrite(destFacesPath+str(i)+'L.jpg', leftEye)
