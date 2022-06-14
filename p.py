@@ -13,8 +13,8 @@ ley = np.zeros((48,32))
 im = np.zeros((1024,1024))
 img = cv2.imread('sample.jpg',cv2.IMREAD_GRAYSCALE)
 Leye = cv2.imread('./Preprocesado/Ojos/0L.jpg',cv2.IMREAD_GRAYSCALE)
-# img = cv2.normalize(img,im,0,255,cv2.NORM_MINMAX)
-# Leye = cv2.normalize(Leye,ley,0,255,cv2.NORM_MINMAX)
+# # img = cv2.normalize(img,im,0,255,cv2.NORM_MINMAX)
+# # Leye = cv2.normalize(Leye,ley,0,255,cv2.NORM_MINMAX)
 
 # d
 # computing the histogram of the blue channel of the image

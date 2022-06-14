@@ -5,7 +5,7 @@ import pandas as pd
 import os
 import shutil
 
-finalImageSize = (48,32)
+finalImageSize = (32,48)
 
 #Restablecer en caso de que sea necesario
 try:
@@ -37,8 +37,8 @@ i=0
 for name in faceImages:
     img = cv2.imread(facesPath+name)
     imgray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    leftEye = imgray[413:413+4*finalImageSize[1], 284:284+4*finalImageSize[0]]
-    rightEye = imgray[413:413+4*finalImageSize[1], 550:550+4*finalImageSize[0]]
+    leftEye = imgray[413:413+4*finalImageSize[0], 284:284+4*finalImageSize[1]]
+    rightEye = imgray[413:413+4*finalImageSize[0], 550:550+4*finalImageSize[1]]
     leftEye = cv2.resize(leftEye,finalImageSize)
     rightEye = cv2.resize(rightEye,finalImageSize)
     cv2.imwrite(destFacesPath+str(i)+'L.jpg', leftEye)
@@ -49,10 +49,11 @@ for name in faceImages:
 for name in NoEyesImages:
     img = cv2.imread(noEyesPath+name)
     imgray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    maxY=int(imgray.shape[0]/finalImageSize[0])
     maxX=int(imgray.shape[1]/finalImageSize[1])
-    for stepY in range(maxY):
-        for stepX in range(maxX):
+    maxY=int(imgray.shape[0]/finalImageSize[0])
+    print(maxY,maxX)
+    for stepY in range(maxY-1):
+        for stepX in range(maxX-1):
             cropped = imgray[stepY*finalImageSize[0]:(stepY+1)*finalImageSize[0], 
                             stepX*finalImageSize[1]:(stepX+1)*finalImageSize[1]]
             cv2.imwrite(destNoEyesPath+str(i)+'.jpg', cropped)
