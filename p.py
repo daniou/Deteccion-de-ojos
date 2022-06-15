@@ -7,23 +7,23 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-  
-# reading the input image
-ley = np.zeros((48,32))
-im = np.zeros((1024,1024))
-img = cv2.imread('sample.jpg',cv2.IMREAD_GRAYSCALE)
-Leye = cv2.imread('./Preprocesado/Ojos/0L.jpg',cv2.IMREAD_GRAYSCALE)
-# # img = cv2.normalize(img,im,0,255,cv2.NORM_MINMAX)
-# # Leye = cv2.normalize(Leye,ley,0,255,cv2.NORM_MINMAX)
 
-# d
-# computing the histogram of the blue channel of the image
-hist = cv2.calcHist([img],[0],None,[256],[0,256])
-histeye = cv2.calcHist([Leye],[0],None,[256],[0,256])
-  
-  
-# plot the above computed histogram
-plt.plot(hist, color='b')
-plt.plot(histeye, color='r')
-plt.title('Image Histogram For Blue Channel GFG')
-plt.show()
+
+def extractBorders(img, mode):
+    if mode == 'canny':
+        edges = cv2.Canny(img, 100, 200)
+    elif mode == 'laplacian':
+        edges = cv2.Laplacian(img, cv2.CV_64F)
+    else:
+        edgex = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=5)  # x
+        edgey = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=5)  # y
+        edges = (edgex + edgey) / 2
+    return edges
+
+
+img = cv2.imread("sample.jpg")
+img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+img = extractBorders(img, 'laplacian')
+cv2.imwrite('bordes.jpg', img)
+cv2.imshow('imagen de bordes', img)
+cv2.waitKey(0)
