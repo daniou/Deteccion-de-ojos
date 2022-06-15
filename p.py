@@ -23,7 +23,7 @@ histeye = cv2.calcHist([Leye],[0],None,[256],[0,256])
   
   
 # plot the above computed histogram
-plt.plot(hist/(img.shape[0]*img.shape[1]), color='b')
-plt.plot(histeye/(Leye.shape[0]*Leye.shape[1]), color='r')
+plt.plot(hist, color='b')
+plt.plot(histeye, color='r')
 plt.title('Image Histogram For Blue Channel GFG')
 plt.show()

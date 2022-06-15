@@ -39,8 +39,8 @@ for name in faceImages:
     imgray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     leftEye = imgray[413:413+4*finalImageSize[0], 284:284+4*finalImageSize[1]]
     rightEye = imgray[413:413+4*finalImageSize[0], 550:550+4*finalImageSize[1]]
-    leftEye = cv2.resize(leftEye,finalImageSize)
-    rightEye = cv2.resize(rightEye,finalImageSize)
+    leftEye = cv2.resize(leftEye,(finalImageSize[1],finalImageSize[0]))
+    rightEye = cv2.resize(rightEye,(finalImageSize[1],finalImageSize[0]))
     cv2.imwrite(destFacesPath+str(i)+'L.jpg', leftEye)
     cv2.imwrite(destFacesPath+str(i)+'R.jpg', rightEye)
     i+=1
