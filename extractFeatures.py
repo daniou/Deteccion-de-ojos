@@ -52,5 +52,5 @@ for name in noEyeImages:
     i+=1
     if i==2000: break
 
-features.columns =['id','isEye','variance','']
+features.columns =['id','isEye','variance','cx','cy']
 features.to_csv(featuresPath+'features.csv',index=False)

@@ -21,9 +21,16 @@ def extractBorders(img, mode):
     return edges
 
 
-img = cv2.imread("sample.jpg")
+img = cv2.imread("eye.jpg")
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-img = extractBorders(img, 'laplacian')
+img = extractBorders(img, 'canny')
+# calculate moments of binary image
+m = cv2.moments(img)
+
+
+# calculate x,y coordinate of center
+cX = int(m["m10"] / m["m00"])
+cY = int(m["m01"] / m["m00"])
 cv2.imwrite('bordes.jpg', img)
 cv2.imshow('imagen de bordes', img)
 cv2.waitKey(0)

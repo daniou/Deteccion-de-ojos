@@ -9,6 +9,10 @@ import os
 import shutil
 from matplotlib import pyplot as plt
 
+MODE = 'canny'
+
+f = open("p.txt",'a')
+
 #Restablecer en caso de que sea necesario
 try:
     shutil.rmtree('./Border_images/')
@@ -45,14 +49,26 @@ i=0
 for name in eyeImages:
     img = cv2.imread(eyesPath+name)
     imgray= cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    res = extractBorders(imgray,'canny')
+    res = extractBorders(imgray,MODE)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
+    res = cv2.dilate(res, kernel,iterations=1)    
+    (cnt, hierarchy) = cv2.findContours(
+    res.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    print(len(cnt))
+    f.write(str(len(cnt))+'\n')
     cv2.imwrite(borderImagesPath+'Ojos/'+name+'.jpg', res)
     i+=1
-
+print("adasdasdbasdashbdjasbdkajsbdhjasdbaksjhdbaskjdbasdkjabdkjahsdbkajsdbasjkhdbkajshdbhjabkb")
 #PREPROCESSING POR CADA IMAGEN DE CARAS
 for name in noEyeImages:
     img = cv2.imread(noEyesPath+name)
     imgray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    res = extractBorders(imgray,'canny')
+    res = extractBorders(imgray,MODE)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
+    res = cv2.dilate(res, kernel,iterations=1)  
+    (cnt, hierarchy) = cv2.findContours(
+    res.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    print(len(cnt))
+    f.write(str(len(cnt))+'\n')
     cv2.imwrite(borderImagesPath+'No_ojos/'+name+'.jpg', res)
     i+=1
